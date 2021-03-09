@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Basic Maths</title>
+</head>
+
+<body>
+    <nav style="height:7%">
+        <span class="motion"></span>
+        <a class="smalltitle" href="index.html"><h1>Basic Maths</h1></a>
+<!--        <small class="centerscreen">Introductory Stuff</small> -->
+        <a class="link1" href="index.html">Home</a>
+        <a class="link2" href="Book.html">Book</a>
+        <a class="link3" href="ContactMe.html">Contact Me</a>
+    </nav>
+    <form>
+        <div class="instructions-container">
+            <strong>Choose your Maths</strong>
+
+            <!--<div class="options-container">-->
+            <div class="optiontype">
+
+                <input id="option1" class="option" type="radio" value="Straight Line Graph">
+                <label for="option1" style="color:#000">xy graph</label>
+            </div>
+            <div class="optiontype">
+
+                <input id="option2" class="option" type="radio" value="Trigonometry">
+                <label for="option2" style="color:#ffb">trigonometry</label>
+            </div>
+            <div class="optiontype">
+
+                <input id="option3" class="option" type="radio" value="Multiplication">
+                <label for="option3" style="color:#4d6">multiplication</label>
+            </div>
+            <div class="optiontype">
+
+                <input id="option4" class="option" type="radio" value="Division">
+                <label for="option4" style="color:#717">division</label>
+            </div>
+            <div class="optiontype">
+
+                <input id="option5" class="option" type="radio" value="Addition">
+                <label for="option5" style="color:#ced">addition</label>
+            </div>
+            <div class="optiontype">
+
+                <input id="option6" class="option" type="radio" value="Subtraction">
+                <label for="option6" style="color:#fff">subtraction</label>
+            </div>
+            <button class="option-choice" value="reset">Reset</button>
+    </form>
+
+
+
+    </div>
+
+<div class="show0" style="display:none">
+    <div class="xy-container">
+
+        <div class="xaxis">
+            <label for="xaxisx">Enter x-axis</label>
+            <input type="number" class="xaxisx" Placeholder="Enter Here"><span class="xitem"></span>
+        </div>
+        
+        <div class="topY">
+            <label for="ymax">Enter y-axis</label>
+            <input type="number" class="ymax" placeholder="Enter Here">
+        </div>
+
+        <div>
+            <button class="submitter" value="SUBMIT" onclick="addvar()">Submit DATA Points</button>
+<!--            <label for="submitter2" class="label2"></label>-->
+            <button class="submitter2" value="SUBMIT" onclick="submitchords()">DRAW GRAPH</button>
+        </div>
+    </div>
+
+    <div id="mathsBlock"></div>
+    <span class="bfpoints"></span>
+    <span class="bflines"></span>
+    <div id="graphblock">
+
+        <span class="xdisplay-container">x=
+            <span class="xdisplay">
+
+            </span>
+
+        </span>
+
+        <span class="ydisplay-container">y=
+            <span class="ydisplay">
+
+            </span>
+
+        </span>
+    </div>
+    <div class="xdata"></div>
+    <br>
+    <div class="ydata">
+        <span class="textstuff">When x is...</span>
+        <input class="ychoice" type="number" value="" Placeholder="y = ">
+        <button class ="buttonx" value="" onclick="xvalue()">Submit x</button>
+        <span class ="outputy"></span>
+
+    </div>
+</div>
+
+<div class="show1" style="display:none">
+    
+        <label class="trigAngleLabel" for="trigAngle">Angle</label>
+        <input type="number" class="trigAngle">
+    
+</div>
+
+<div id="log">Click <u>TWICE</u> on the radio buttons to bring up the relevant Math. Click Reset button to restart</div>
+
+<section class="feetlast">
+    <footer class="feetend">
+        <span class="ContactMe">
+            <a href="ContactMe.html">Contact Me</a>
+        </span>
+        <span class="book">
+            <a href="Book.html">Book</a>
+        </span>
+    </footer>
+</section>
+
+    <script>
+// Variables for option choice
+
+var form = document.querySelector("form");
+        var log = document.querySelector("#log");
+        var MathColour = document.querySelector("#mathsBlock");
+        var i = 0;
+        var optionclear
+        var optionlist = document.querySelectorAll(".option");
+        colourchoice = Array("#000", "#ffb", "#4d6", "#717", "#ced", "#fff")
+        var show0 = document.querySelector(".show0")
+        var show1 = document.querySelector(".show1")
+
+//This is tha Maths Input Area
+
+        var xinput = 0;
+        var yinput = 0;
+        var hipointx = null
+        var hipointy = null
+        var smallx = null
+        var smally = null
+        var angle = Number(0)
+        var x1 = Number(0)
+        var y1 = Number(0)
+        var x
+        var y
+        var wide = Number(0)
+        var high = Number(0)
+        
+        let width = ((70 / 100) * window.innerWidth) - 20
+        
+        var gradient = 0
+        var cpointy = 0
+        
+        xpoint = Array();
+        ypoint = Array();
+        points = Array()
+        count = 0;
+        chordscount = 0
+        xchord = "x = "
+        ychord = "y = "
+        var xdisplay = document.querySelector(".xdisplay")
+        var ydisplay = document.querySelector(".ydisplay")
+        var xdata = document.querySelector("#mathsBlock")
+        var bfpoint = document.querySelector(".bfpoints")
+        var bfline = document.querySelector(".bflines")
+        var ydata = document.querySelector(".ydata")
+        var graphdivider = Number(1)
+        var meanx = 0
+        var meany = 0
+        var bestfittop = 0
+        var bestfitbottom = 0
+        var flag = 1
+        var counting = 1
+        var testangle = Number(0)
+        var cpointypcentx = Number(0)
+        var cpointypcenty = Number(0)
+
+        // This is the input area where the co-ordinate are fetched
+        function addvar() {
+
+            var inputx = document.querySelector(".xaxisx");
+            var inputy = document.querySelector(".ymax");
+
+            //These is to check for null entries
+            var xempty = String(inputx.value)
+            var yempty = String(inputy.value)
+
+            if (xempty === "") {
+                return
+            }
+            if (yempty === "") {
+                return
+            }
+
+            if (count >= 0) {
+                xcords = document.querySelectorAll(".xchord")
+                xcords.forEach(xcords => {
+                    xcords.parentNode.removeChild(xcords)
+                });
+                graphdivider = count + 1
+            }
+
+            if (count >= 0) {
+                ycords = document.querySelectorAll(".ychord")
+                ycords.forEach(ycords => {
+                    ycords.parentNode.removeChild(ycords)
+                });
+
+            }
+
+            var chordwidth = (width / graphdivider) - 2
+
+            inputx = Number(inputx.value)
+            inputy = Number(inputy.value)
+            xpoint.push(Number(inputx));
+            ypoint.push(Number(inputy));
+            document.querySelector(".xaxisx").value = null;
+            document.querySelector(".ymax").value = null;
+
+            // This part is where you see the numbers input on screen xpoint to the grid
+            for (iterate = 0; iterate < count + 1; iterate++) {
+                xdisplay.innerHTML = xdisplay.innerHTML + `<input type="number" class="xchord xchord${iterate}" style="left:calc(10% + ${iterate}0%); width:${chordwidth}px" value="${xpoint[iterate]}">`
+                ydisplay.innerHTML = ydisplay.innerHTML + `<input type="number" class="ychord ychord${iterate}" style="left:calc(10% + ${iterate}0%); width:${chordwidth}px" value="${ypoint[iterate]}">`
+            }
+
+            count = count + 1
+
+            return
+        }
+
+        // This is where you submit the co-ordinates to appear on the screen
+
+        function submitchords() {
+
+            //Replace the arrays with the values that may have been edited in the graphblock
+
+            xpoint.splice(0, xpoint.length)
+            ypoint.splice(0, ypoint.length)
+            xp = document.querySelectorAll(".xchord")
+            yp = document.querySelectorAll(".ychord")
+            for (i = 0; i < count; i++) {
+                xpoint.push(Number(xp[i].value))
+                ypoint.push(Number(yp[i].value))
+
+            }
+            // End replace
+
+            chordscount = chordscount + 1
+            if (chordscount > 1) {
+                elems = document.querySelectorAll("#deletors")
+                elems.forEach(elems => {
+                    elems.parentNode.removeChild(elems)
+                });
+
+            }
+
+            
+            
+            meanx = 0
+            meany = 0
+            var bestfittop = Number(0)
+            var bestfitbottom = Number(0)
+            hipointx = xpoint[0]
+            hipointy = ypoint[0]
+            smallx = Number(xpoint[0])
+            smally = Number(ypoint[0])
+            maxx = 0
+            maxy = 0
+
+
+            // Determining best fit Line Gradient for straight line graph equation -> y=mx+c
+            // Using Least square method
+
+            for (i = 0; i < xpoint.length; i++) {
+                meanx = Number(meanx) + Number(xpoint[i])
+            }
+            meanx = meanx / xpoint.length
+
+            for (i = 0; i < xpoint.length; i++) {
+                meany = Number(meany) + Number(ypoint[i])
+            }
+            meany = meany / xpoint.length
+
+            for (i = 0; i < xpoint.length; i++) {
+                bestfittop = Number(bestfittop) + ((Number(xpoint[i]) - Number(meanx)) * (Number(ypoint[i]) - Number(meany)))
+                bestfitbottom = Number(bestfitbottom) + (Number(xpoint[i]) - Number(meanx)) * (Number(xpoint[i]) - Number(meanx))
+            }
+
+            if (bestfittop == 0 && bestfitbottom == 0) {
+                gradient = "No Gradient, special case"
+                console.log("Bad Gradient - naughty!")
+                console.log((180 / Math.PI) * Math.atan(gradient))
+            }
+            else if (bestfittop == 0 && bestfitbottom != 0) {
+                gradient = 0
+                console.log("gradient y != 0")
+                console.log((180 / Math.PI) * Math.atan(gradient))
+            }
+            else if (bestfitbottom == 0 && bestfittop != 1) {
+                gradient = 999999999999999999999
+                console.log("Gradient x != 0")
+                console.log((180 / Math.PI) * Math.atan(gradient))
+            }
+            else {
+                gradient = Number(bestfittop) / Number(bestfitbottom)
+            }
+
+            cpointy = meany - gradient * (meanx)
+            cpointx = -cpointy / gradient
+//            console.log("Gradient = " + gradient + " bestfittop = " + bestfittop + " bestfitbottom = " + bestfitbottom + " cpointy = " + cpointy)
+
+            //The Best fit Line Co-Ordinates
+            var bfstarty = (((gradient * xpoint[0]) + Number(cpointy)))
+                var bfstartx = ((bfstarty - (Number(cpointy)))) / gradient
+                var bfendy = (gradient * xpoint[xpoint.length - 1] + (Number(cpointy)))
+                var bfendx = (Number(bfendy) - (Number(cpointy))) / gradient
+
+                
+//Gradient sloping up and right                
+                if (Number(gradient) > 0) {
+// Right Upper Right Quadrant Only
+                    if (cpointx <= bfstartx && bfstartx >=0) {
+                        if (cpointy<=0) {
+                        bfstarty = cpointy
+                        bfstartx = (bfstarty - cpointy)/gradient
+                        }
+                        else if (cpointy>0) {
+                            bfstartx = cpointx
+                            bfstarty = gradient*bfstartx + cpointy
+                        }
+                        bfendx = bfendx
+                        bfendy = bfendy
+                    }
+// Upper Left Quadrant only                    
+                    else if (cpointx <= bfstartx && bfstartx < 0) {
+                        bfstartx = cpointx
+                        bfstarty = gradient*bfstartx + cpointy
+                        if (bfstartx <= 0 && bfendx <= 0) {
+                            bfendy = cpointy
+                            bfendx = 0
+                        }
+//Upper Half
+                        else if (bfstartx <=0 && bfendx > 0) {
+                            bfendy = bfendy
+                            bfendx = bfendx
+                        }
+                   }
+// Lower right Quadrant
+                   else if (cpointx > bfstartx && bfstartx > 0) {
+                        bfstarty = cpointy
+                        bfstartx = (bfstarty - cpointy)/gradient
+                        if (bfendx <=cpointx) {
+                        bfendx = cpointx
+                        bfendy = gradient*bfendx + cpointy
+                        }
+                        else {
+                            bfendy = gradient*bfendx +cpointy
+                        }
+                   }
+// Lower Left Quadrant
+                    else if (cpointx >= bfstartx && bfstartx <= 0) {
+                            bfstartx = bfstartx
+                            bfstarty = bfstarty
+                            if (bfendx >= cpointx && cpointy <= 0) {
+                                bfendx = bfendx
+                                bfendy = bfendy
+                            }
+                            else if (bfendx >= cpointx && cpointy > 0) {
+                                bfendx = bfendx
+                                bfendy = bfendy
+                            }
+
+                            else if (bfendx < cpointx && cpointy >= 0) {
+                                bfendy = cpointy
+                                bfendx = (bfendy - cpointy)/gradient
+                            }
+                            else if (bfendx < cpointx && cpointy < 0) {
+                                bfendx = cpointx
+                                bfendy = gradient*bfendx + cpointy
+                            }
+                            
+                    }
+                
+                }
+
+// Best Fit Line Sloping Left
+                if (Number(gradient) < 0 ) {
+// Top Right Quadrant
+                    if (cpointx >= bfendx && bfstartx >= 0) {
+                        if (cpointy<=bfstarty) {
+                        bfstarty = bfstarty
+                        bfstartx = bfstartx
+                        bfendy = gradient*cpointx + cpointy
+                        bfendx = cpointx
+                        }
+                        else {
+                            bfstarty = cpointy
+                            bfstartx = 0
+                            if (bfendx <= cpointx && bfendy >=0) {
+                                bfendy = 0
+                                bfendx = cpointx
+                            }
+                            else if (bfendx <= cpointx && bfendy <0) {
+                                bfendx = bfendx
+                                bfendy = bfendy
+                            }
+                        }
+                    }
+                    
+//Top Left Quadrant
+                    else if (cpointx >= bfendx && bfstartx < 0) {
+                        if (cpointy <= bfstarty) {
+                            bfstarty = bfstarty
+                            bfstartx = bfstartx
+                            if (cpointx <= 0) {
+                            bfendx = 0
+                            bfendy = gradient*bfendx + cpointy
+                            }
+                            else if (cpointx > 0) {
+                                bfendx = cpointx
+                                bfendy = gradient*bfendx + cpointy 
+                            }
+                        }
+                    }
+//Bottom right Quadrant
+                    else if (cpointx <= bfendx && bfstartx >= 0) {
+                        if (cpointx >= 0) {
+                            bfstartx = 0
+                            bfstarty = cpointy
+                        }
+                        else if (cpointx < 0) {
+                            bfstartx = cpointx
+                            bfstarty = gradient*bfstartx + cpointy
+                        }
+                    }
+//Bottom Left Quadrant
+                    else if (cpointx <= bfendx && bfstartx < 0) {
+                        bfstartx = cpointx
+                        bfstarty = gradient*bfstartx + cpointy
+                        if (bfendy >= cpointy) {
+                            bfendy = cpointy
+                            bfendx = (bfendy - cpointy)/gradient
+                        }
+                    }
+                }
+
+
+            // Determining the width and height parameters of the graph
+
+
+            // rightmost Point
+            for (i = 0; i < (xpoint.length - 1); i++) {
+                if (Number(hipointx) < Number(xpoint[i + 1])) {
+                    hipointx = Number(xpoint[i + 1])
+                }
+                else {
+                    hipointx = Number(hipointx)
+                }
+            }
+            //Highest Point
+            for (i = 0; i < (xpoint.length - 1); i++) {
+                if (Number(hipointy) < Number(ypoint[i + 1])) {
+                    hipointy = Number(ypoint[i + 1])
+                }
+                else {
+                    hipointy = Number(hipointy)
+                }
+            }
+            //Leftmost Point
+            for (i = 0; i < xpoint.length - 1; i++) {
+                if (Number(smallx) > Number(xpoint[i + 1])) {
+                    smallx = Number(xpoint[i + 1])
+                }
+            }
+            //Lowest Point
+            for (i = 0; i < xpoint.length - 1; i++) {
+                if (Number(smally) > Number(ypoint[i + 1])) {
+                    smally = Number(ypoint[i + 1])
+                }
+            }
+
+            // If smallx<0 we need to add this to maxx as a positive to make graph wider
+            if (Number(smallx) <= Number(hipointx) && Number(hipointx) < 0) {
+                
+                if (Number(cpointx) < Number(smallx)) {
+                    maxx = Math.sqrt(Math.pow(Number(cpointx), 2))
+                }
+                else if (Number(cpointx) >= Number(smallx) && cpointx < 0) {
+                maxx = Math.sqrt(Math.pow(Number(smallx), 2))
+                }
+                else if (Number(cpointx) >= Number(smallx) && cpointx >= 0) {
+                maxx = Math.sqrt(Math.pow(Number(smallx), 2)) + Math.sqrt(Math.pow(Number(cpointx), 2))
+                }
+            }
+            else if (Number(smallx) <= Number(hipointx) && Number(hipointx) >= 0) {
+                if (Number(smallx) < Number(cpointx) && Number(hipointx) > Number(cpointx)) {
+                maxx = Math.sqrt(Math.pow(Number(hipointx), 2)) + Math.sqrt(Math.pow(Number(smallx), 2))
+                }
+                else if (Number(smallx) <= Number(cpointx) && Number(hipointx) <= Number(cpointx)) {
+                maxx = Math.sqrt(Math.pow(Number(cpointx), 2)) + Math.sqrt(Math.pow(Number(smallx), 2))
+                }
+                else if (Number(smallx) >= Number(cpointx)) {
+                    maxx = Math.sqrt(Math.pow(Number(hipointx), 2)) + Math.sqrt(Math.pow(Number(cpointx), 2))
+                }
+            }
+            else if (Number(hipointx) > Number(smallx) && Number(smallx) >= 0) {
+                if (Number(cpointx) > Number(hipointx)) {
+                    maxx = Math.sqrt(Math.pow(Number(cpointx), 2))
+                }
+                else if (Number(hipointx) >= Number(cpointx)) {
+                    maxx = Math.sqrt(Math.pow(Number(hipointx), 2))
+                }
+            }
+            // If smally<0 we need to add this to maxx as a positive to make graph wider
+            if (Number(smally) <= Number(hipointy) && Number(hipointy) < 0) {
+                if (Number(cpointy) <= Number(smally)) {
+                maxy = Math.sqrt(Math.pow(Number(cpointy), 2))
+                }
+                else if (Number(cpointy) >= Number(smally) && Number(cpointy) <=0) {
+                maxy = Math.sqrt(Math.pow(Number(smally), 2))
+                }
+                else if (Number(cpointy) >= Number(smally) && Number(cpointy) >0) {
+                maxy = Math.sqrt(Math.pow(Number(smally), 2)) + Math.sqrt(Math.pow(Number(cpointy), 2))
+                }
+            }
+            else if (Number(smally) <= Number(hipointy) && Number(hipointy) >= 0) {
+                if (Number(cpointy) <= Number(smally)) {
+                    maxy = Math.sqrt(Math.pow(Number(cpointy), 2)) + Math.sqrt(Math.pow(Number(hipointy), 2))
+                }
+                else if (Number(cpointy) > Number(smally) && Number(cpointy) < Number(hipointy)) {
+                    maxy = Math.sqrt(Math.pow(Number(smally), 2)) + Math.sqrt(Math.pow(Number(hipointy), 2))
+                }
+                else if (Number(cpointy) > Number(smally) && Number(cpointy) > Number(hipointy)) {
+                    maxy = Math.sqrt(Math.pow(Number(smally), 2)) + Math.sqrt(Math.pow(Number(cpointy), 2))
+                }
+            }
+            else if (Number(hipointy) >= Number(smally) && Number(smally) >= 0) {
+                if (Number(cpointy) >= Number(hipointy)) {
+                    maxy = Math.sqrt(Math.pow(Number(cpointy), 2))
+                }
+                else if (Number(hipointy) > Number(cpointy)) {
+                    maxy = Math.sqrt(Math.pow(Number(hipointy), 2))
+                }
+            }
+            if (Number(gradient) == 0) {
+                maxx = Math.sqrt(Math.pow(Number(hipointx), 2)) + Math.sqrt(Math.pow(Number(smallx), 2))
+                console.log("gradient zero maxx = " + maxx)
+            }
+            
+            // Making the axis the beginning and end points
+            //for x
+            
+            if (smallx <= 0 && cpointx <= smallx) {
+                xshift = -cpointx
+            }
+            else if (smallx <= 0) {
+                xshift = -smallx
+            }
+            else if (smallx >= 0 && cpointx <= 0) {
+                xshift = -cpointx
+            }
+            else {
+                xshift = 0
+            }
+            //for y
+            if (smally <= 0 && cpointy <= smally) {
+                yshift = -cpointy
+            }
+            else if (smally <= 0) {
+                yshift = -smally
+            }
+            else if (smally >= 0 && cpointy <= 0) {
+                yshift = -cpointy
+            }
+            else {
+                yshift = 0
+            }
+            if (Number(gradient) == 0) {
+            xshift = -smallx
+            }
+
+            cpointypcentx = (xshift / maxx) * 100
+            cpointypcenty = (yshift / maxy) * 100
+            var cpointyc = yshift + cpointy
+            var cpointy0 = (cpointy * 100) / maxy
+
+            //End of Best Fit Line
+
+            //Placing points on the graph
+            for (i = 0; i < xpoint.length; i++) {
+                
+                var x1 = Number(x)
+                var y1 = Number(y)
+
+                var offsetx = Number(xshift) + Number(xpoint[i])
+                var x = ((Number(offsetx) / Number(maxx)) * 100)
+
+                var offsety = Number(yshift) + Number(ypoint[i])
+                var y = ((Number(offsety) / Number(maxy)) * 100)
+
+                var xangle = (window.innerWidth * 0.7) * ((x - x1) / 100)
+                var yangle = window.innerHeight * 0.67 * ((y - y1) / 100)
+                var width = Math.sqrt((xangle * xangle) + (yangle * yangle))
+                var angle = -(Math.atan(yangle / xangle) * (180 / Math.PI))
+
+                if (x < x1) {
+                    angle = angle - 180
+                }
+//                console.log("angle = " + angle)
+
+                xdata.innerHTML = xdata.innerHTML + `<span class="point${i}" id="deletors" style="position:absolute; border: 0.5px solid white; width:0.5px;height:0.5px; left: ${x}%;bottom: ${y}%"><small>(${xpoint[i]},${ypoint[i]})</small> </span>`
+
+                if (i >= 0) {
+                    xdata.innerHTML = xdata.innerHTML + `<span class="angle" id="deletors" style="position:absolute;width:${width}px;height:0px;transform:rotate(${angle}deg);transform-origin: 0% 0%;border: 0.5px solid black;left:${x1}%;bottom:${y1}%;"></span>`
+                }
+            }    
+
+            if (Number(gradient) == 0) {
+                bfstartx = smallx
+                bfendx = hipointx
+                bfstarty = cpointy
+                bfendy = cpointy
+            }
+
+                bfstartx = (Number(bfstartx) + Number(xshift)) * (100 / maxx)
+                bfstarty = (Number(bfstarty) + Number(yshift)) * (100 / maxy)
+                bfendy = (Number(bfendy) + Number(yshift)) * (100 / maxy)
+                bfendx = (Number(bfendx) + Number(xshift)) * (100 / maxx)
+
+                var bfxangle = (window.innerWidth * 0.7) * ((bfendx - bfstartx) / 100)
+                bfxangle = Math.round(bfxangle*Math.pow(10,2))/Math.pow(10,2)
+                
+                var bfyangle = window.innerHeight * 0.67 * ((bfendy - bfstarty) / 100)
+                bfyangle = Math.round(bfyangle*Math.pow(10,2))/Math.pow(10,2)
+                
+                var bfwidth = Math.sqrt(Math.pow(bfxangle,2) + Math.pow(bfyangle,2))
+                bfwidth = Math.round(bfwidth*Math.pow(10,2))/Math.pow(10,2)
+                
+                var bfangle = (Math.acos(bfxangle / bfwidth) * (180 / Math.PI))
+                bfangle = Math.round(bfangle*Math.pow(10,2))/Math.pow(10,2)
+
+
+
+                if (bfendy>bfstarty && bfendx>bfstartx) {
+                    bfangle = -bfangle
+                }
+                else if (bfendy<bfstarty && bfendx>bfstartx) {
+                    bfangle = bfangle
+                }
+                else if (bfendy>bfstarty && bfendx<bfstartx) {
+                    bfangle = -bfangle
+                }
+                else if (bfendy<bfstarty && bfendx<bfstartx) {
+                    bfangle = bfangle
+                }
+
+
+            xdata.innerHTML = xdata.innerHTML + `<span class="bfangle" id="deletors" style="position:absolute;width:${bfwidth}px;height:0px;transform:rotate(${bfangle}deg);transform-origin: 0% 0%;border-bottom: 0.5px solid lightgray;left:${bfstartx}%;bottom:${bfstarty}%;"></span>`
+
+            // XY Axis            
+            xdata.innerHTML = xdata.innerHTML + `<span class="x-axis" id="deletors" style="position:absolute;width:100%;height:0px;transform:rotate(0deg);transform-origin: 0% 0%;color: orange; border-bottom: 0.5px dotted yellow;left:0%;bottom:${cpointypcenty}%;">&nbsp 0 &nbsp</span>`
+            xdata.innerHTML = xdata.innerHTML + `<span class="y-axis" id="deletors" style="position:absolute;width:0%;height:100%;transform:rotate(0deg);transform-origin: 0% 0%;color: orange; border-left: 0.5px dotted yellow;left:${cpointypcentx}%;bottom:0%;"> &nbsp</span>`
+
+            
+
+            // y = 0 point
+            xdata.innerHTML = xdata.innerHTML + `<span class="y-zero" id="deletors" style="position:absolute; color:red; border: 1px solid red; width:1px;height:1px; left: ${cpointypcentx}%;bottom: ${cpointypcenty + cpointy0}%"><small>(${cpointy})</small> </span>`
+
+            // End of XY Axis
+
+            // Plotting the Best fit points on the Graph            
+
+            xdata.innerHTML = xdata.innerHTML + `<span class="bfpoints1" id="deletors" style="position:absolute; color: blue; border: 0.5px solid blue; width:1px;height:1px; left: ${bfstartx}%;bottom: ${bfstarty}%"><small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(${bfstartx},${bfstarty})</small> </span>`
+            xdata.innerHTML = xdata.innerHTML + `<span class="bfpoints2" id="deletors" style="position:absolute; color: blue;border: 0.5px solid blue; width:1px;height:1px; left: ${bfendx}%;bottom: ${bfendy}%"><small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(${bfendx},${bfendy})</small> </span>`
+
+            // x=0 point on Best Fit Line
+            xdata.innerHTML = xdata.innerHTML + `<span class="x-zero" id="deletors" style="position:absolute; color: red; border: 1px solid olive; width:1px; height:1px; left: ${cpointypcentx}%;bottom: ${cpointy + cpointypcenty}%"><small>(0,0)</small> </span>`
+
+            // Putting constants on the data area
+            gradient = Math.round(gradient*Math.pow(10,2))/Math.pow(10,2)
+            cpointy = Math.round(cpointy*Math.pow(10,2))/Math.pow(10,2)
+            cpointx = Math.round(cpointx*Math.pow(10,2))/Math.pow(10,2)
+            ydata.innerHTML = ydata.innerHTML + `<span class="xdata" id = "deletors" style="position: absolute; top:45%;"> <small>Gradient = ${gradient}</small></span>`
+            ydata.innerHTML = ydata.innerHTML + `<span class="xdata" id = "deletors" style="position: absolute; top:60%;"> <small>Eq'n: y = ${gradient}x + ${cpointy}</small></span>`
+            ydata.innerHTML = ydata.innerHTML + `<span class="xdata" id = "deletors" style="position: absolute; top:75%;"> <small>x = 0; y= ${cpointy}</small></span>`
+            ydata.innerHTML = ydata.innerHTML + `<span class="xdata" id = "deletors" style="position: absolute; top:90%;"> <small>y = 0; x= ${cpointx}</small></span>`
+
+
+        }
+
+
+        //This is using the radio button to select the Maths Options
+
+        form.addEventListener("click", function mathsChoice(event) {
+            if (optionclear != i) {
+            }
+            else {
+                optionlist[optionclear].checked = false;
+            }
+
+            for (i = 0; i < optionlist.length; i++) {
+                var choice = optionlist[i].checked;
+
+                if (choice == true) {
+                    log.innerText = optionlist[i].value
+                    if (optionclear == 0) {
+                    show0.style.display = "unset"
+                    show1.style.display = "none" 
+                    }
+                    else if (optionclear == 1) {
+                    show0.style.display = "none"
+                    show1.style.display = "unset"
+                    }
+                    else {
+                    show0.style.display = "none"
+                    show1.style.display = "none"    
+                    }
+
+                    MathColour.style.borderColor = colourchoice[i];
+                    MathColour.style.color = colourchoice[i];
+                    log.style.color = colourchoice[i];
+                    log.style.borderBottomColor = colourchoice[i];
+
+
+                    for (optionclear = 6; optionclear >= 1; optionclear--) {
+                        if (optionclear != i) {
+                            optionclear = i;
+                            return
+                        }
+                    }
+                }
+            }
+        })
+
+
+//This is the End of the Maths Options
+console.log("here i am")
+function xvalue() {
+    console.log(gradient)
+    console.log(cpointy)
+    var xval = document.querySelector(".ychoice")
+    var xoutput = document.querySelector(".outputy")
+    yvalue = Number(gradient)*Number(xval.value) + Number(cpointy)
+    xoutput.innerText = `y = ${yvalue}`
+    console.log(yvalue)
+    
+}
+
+
+
+    </script>
+
+</body>
+
+</html>
